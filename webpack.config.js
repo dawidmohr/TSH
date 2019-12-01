@@ -11,7 +11,7 @@ const config = {
   context: path.resolve(__dirname, 'src'),
 
   entry: {
-    app: './index.js'
+    app: ['@babel/polyfill','./index.js']
   },
 
   output: {
