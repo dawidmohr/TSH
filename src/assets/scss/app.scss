@@ -6,8 +6,10 @@
   margin-bottom: 8px;
 }
 
-.gh-username img{
-  width: 32px;
+.gh-username img {
+  width: 24px;
+  border-radius: 2px;
+  transform: translateY(30%);
 }
 
 #profile-bio{
