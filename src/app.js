@@ -5,16 +5,18 @@ import $ from 'cash-dom';
 
 export class App {
   initializeApp() {
-    let self = this;
+    $('.load-username').on('click', (e) => {
+      const userName = $('.username.input').val();
 
-    $('.load-username').on('click', function (e) {
-      let userName = $('.username.input').val();
+      if (!this.validateUserName(userName)) {
+        return false;
+      };
 
       fetch('https://api.github.com/users/' + userName)
         .then((response) => response.json())
         .then((body) => {
-          self.profile = body;
-          self.update_profile();
+          this.profile = body;
+          this.update_profile();
         })
 
     })
@@ -26,5 +28,19 @@ export class App {
     $('#profile-image').attr('src', this.profile.avatar_url)
     $('#profile-url').attr('href', this.profile.html_url).text( '@' + this.profile.login)
     $('#profile-bio').text(this.profile.bio || '(no information)')
+  }
+
+  validateUserName(userName) {
+    const validationRegex = /^[0-9a-z_-]+$/;
+
+    if (!(userName !== '' && validationRegex.test(userName))) {
+      $('.username').addClass('is-danger');
+      $('.load-username').addClass('is-danger');
+      return false;
+    } else {
+      $('.username').removeClass('is-danger');
+      $('.load-username').removeClass('is-danger');
+    }
+    return true;
   }
 }
